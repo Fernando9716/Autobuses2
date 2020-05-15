@@ -81,9 +81,7 @@ public class Asientos extends JPanel implements Serializable, ChangeListener {
         }
     }
     
-    public int getNumeroA (){
-        return numeroA;
-    }
+  
     
     public void setReservar(){
         int c =0;
@@ -103,7 +101,42 @@ public class Asientos extends JPanel implements Serializable, ChangeListener {
         boolean bnd = false;
         for (int i = 0; i < asientos.size() && !bnd; i++) {
             bnd =((JCheckBox)asientos.get(i)).getText().equals(""+numeroA);
+            if(!asientos.get(i).isEnabled()){
+                asientos.get(i).setEnabled(true);
+                asientos.get(i).setSelected(false);
+            }    
+            return bnd;
         }
+        return bnd;
+    }
+    public void setDistribucion(String dis){
+        asientos.clear();
+        if(l.getComponentCount()>0){
+            l.removeAll();        
+        }
+        if(dis.equalsIgnoreCase("Vertical")||dis.toUpperCase().contains("V")){
+            dis="Vertical";
+            DistribucionVertical();
+        } else if(dis.equalsIgnoreCase("Horizontal")||dis.toUpperCase().contains("H")){
+            dis="Horizontal";
+            DistribucionHorizontal();
+        }
+        l.repaint();
+    }
+    
+    public void setAsignar(ArrayList<Integer> r){
+        if(r.size()>0 && r.size()<= numeroA && !asientos.isEmpty()){
+            for (int i = 0; i < asientos.size(); i++) {
+                if(r.contains(Integer.valueOf(Integer.parseInt(asientos.get(i).getText())))){
+                    asientos.get(i).setEnabled(false);
+                }
+                l.repaint();
+            }
+        }
+    }
+    
+      public int getNumeroA (){
+        return numeroA;
     }
 
     public void stateChanged(ChangeEvent ce) {
