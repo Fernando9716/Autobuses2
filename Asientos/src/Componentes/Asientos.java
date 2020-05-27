@@ -27,53 +27,26 @@ public class Asientos extends JPanel implements Serializable, ChangeListener {
 
     private int numeroA;
     private String dist;
-    private ArrayList<JCheckBox> asientos;
+   
     private JPanel l;
-    private int h = 4;
-    private int vehiculo;
     private int ocup;
-
+    private ArrayList<JCheckBox> asientos;
+    
     public Asientos() {
         this.ocup = 0;
         this.dist = "Horizontal";
-        this.numeroA = 5;
-        this.vehiculo = Integer.MAX_VALUE;
+        this.numeroA = 12;
+        
         this.asientos = new ArrayList<>();
         this.l = new JPanel();
-         this.ocup=0;
+        this.ocup=0;
         this.l.setBackground(Color.WHITE);
         add(this.l);
         
        
     }
 
-    private void DistribucionHorizontal() {
-        int columnas = numeroA ;
-        l.setLayout(new GridLayout(0, columnas));
-
-        for (int i = 1; i <= 4; i++) {
-            for (int j = i; j <= this.numeroA-4-i; j+=4) {
-                JCheckBox temp = new JCheckBox();
-                temp.setBackground(Color.WHITE);
-                temp.setBorderPaintedFlat(true);
-                temp.setIcon(new ImageIcon(getClass().getResource("libre.png")));
-                temp.setText("" + j);
-                temp.addChangeListener(this);
-                asientos.add(temp);
-                l.add(temp);
-                
-            }
-            if (i == 2) {
-                for (int s = 1; s < numeroA/4; s++) {
-                    JLabel p = new JLabel("");
-                    p.setIcon(new ImageIcon(getClass().getResource("pasillo.png")));
-                    l.add(p);
-                }
-            }
-        }
-    }
-
-    private void DistribucionVertical() {
+    private void Vertical() {
         int filas = numeroA / 4;
         l.setLayout(new GridLayout(filas, 0));
         int r=2;
@@ -132,11 +105,8 @@ public class Asientos extends JPanel implements Serializable, ChangeListener {
         }
         if(dis.equalsIgnoreCase("Vertical")||dis.toUpperCase().contains("V")){
             dis="Vertical";
-            DistribucionVertical();
-        } else if(dis.equalsIgnoreCase("Horizontal")||dis.toUpperCase().contains("H")){
-            dis="Horizontal";
-            DistribucionHorizontal();
-        }
+            Vertical();
+        } 
         l.repaint();
     }
     
@@ -146,10 +116,8 @@ public class Asientos extends JPanel implements Serializable, ChangeListener {
         if (l.getComponentCount()>0){
             l.removeAll();
         }
-        if (dist.equals("Horizontal")) {
-            DistribucionHorizontal();
-        } else if(dist.equals("Vertical")){
-            DistribucionVertical();
+        else if(dist.equals("Vertical")){
+            Vertical();
         }
         l.repaint();
         
@@ -197,14 +165,10 @@ public class Asientos extends JPanel implements Serializable, ChangeListener {
     public void stateChanged(ChangeEvent ce) {
         JCheckBox asiento = (JCheckBox)ce.getSource();
         if(((JCheckBox)ce.getSource()).isSelected()){
-            if(dist.equals("Horizontal")){
-                asiento.setIcon(new ImageIcon(getClass().getResource("ocupado.png")));
-            }else{
+            if(dist.equals("Vertical")){
                 asiento.setIcon(new ImageIcon(getClass().getResource("ocupado.png")));
             }
-           } else if (dist.equals("Horizontal")){
-               asiento.setIcon(new ImageIcon(getClass().getResource("disponible.png")));
-           }else{
+           } else if (dist.equals("Vertical")){
                asiento.setIcon(new ImageIcon(getClass().getResource("disponible.png")));
            }
     }

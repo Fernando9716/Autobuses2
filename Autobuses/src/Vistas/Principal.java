@@ -82,6 +82,10 @@ public class Principal extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaCorridas = new javax.swing.JTable();
         aceptarCorrida = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
+        Continuar = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        reservar12 = new Componentes.Asientos();
         jPanel4 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         generaBoleto = new javax.swing.JButton();
@@ -89,9 +93,6 @@ public class Principal extends javax.swing.JFrame {
         pasaje = new javax.swing.JTable();
         panelBoletos = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
-        jPanel3 = new javax.swing.JPanel();
-        Continuar = new javax.swing.JButton();
-        jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -184,6 +185,23 @@ public class Principal extends javax.swing.JFrame {
 
         jTabbedPane4.addTab("Corridas", jPanel2);
 
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        Continuar.setText("Continuar");
+        Continuar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ContinuarActionPerformed(evt);
+            }
+        });
+        jPanel3.add(Continuar, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 440, -1, -1));
+
+        jLabel6.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        jLabel6.setText("Selecciona Tus Asientos");
+        jPanel3.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(164, 6, -1, -1));
+        jPanel3.add(reservar12, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 40, 660, 350));
+
+        jTabbedPane4.addTab("Reserva", jPanel3);
+
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel7.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
@@ -241,22 +259,6 @@ public class Principal extends javax.swing.JFrame {
 
         jTabbedPane4.addTab("Cancelar", jPanel6);
 
-        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        Continuar.setText("Continuar");
-        Continuar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ContinuarActionPerformed(evt);
-            }
-        });
-        jPanel3.add(Continuar, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 440, -1, -1));
-
-        jLabel6.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
-        jLabel6.setText("Selecciona Tus Asientos");
-        jPanel3.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(164, 6, -1, -1));
-
-        jTabbedPane4.addTab("Reserva", jPanel3);
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -274,7 +276,7 @@ public class Principal extends javax.swing.JFrame {
     private void aceptarCorridaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aceptarCorridaActionPerformed
        int i = tablaCorridas.getSelectedRow();
        int asientos = Integer.parseInt(tablaCorridas.getValueAt(i, 7).toString());
-      reservar12.setnumeroA(asientos);
+       reservar12.setnumeroA(asientos);
        reservar12.setVisible(true);
         System.out.println(asientos);
     }//GEN-LAST:event_aceptarCorridaActionPerformed
@@ -415,6 +417,7 @@ private void origenDestino1ItemStateChanged(java.awt.event.ItemEvent evt){
     private origendestino.OrigenDestino origenDestino1;
     private javax.swing.JPanel panelBoletos;
     private javax.swing.JTable pasaje;
+    private Componentes.Asientos reservar12;
     private javax.swing.JTable tablaCorridas;
     // End of variables declaration//GEN-END:variables
 }
