@@ -13,9 +13,11 @@ import javax.swing.DefaultCellEditor;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JTextArea;
+import javax.swing.RowFilter;
 import javax.swing.plaf.basic.BasicComboBoxUI;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
@@ -23,6 +25,7 @@ import javax.swing.table.TableColumn;
  */
 public class Principal extends javax.swing.JFrame {
     private DefaultTableModel modeloPasajeros;
+   
     /**
      * Creates new form Principal
      */
@@ -79,10 +82,6 @@ public class Principal extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaCorridas = new javax.swing.JTable();
         aceptarCorrida = new javax.swing.JButton();
-        jPanel3 = new javax.swing.JPanel();
-        Continuar = new javax.swing.JButton();
-        jLabel6 = new javax.swing.JLabel();
-        reservar12 = new resevar.Reservar();
         jPanel4 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         generaBoleto = new javax.swing.JButton();
@@ -90,6 +89,9 @@ public class Principal extends javax.swing.JFrame {
         pasaje = new javax.swing.JTable();
         panelBoletos = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
+        jPanel3 = new javax.swing.JPanel();
+        Continuar = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -103,6 +105,11 @@ public class Principal extends javax.swing.JFrame {
         jPanel1.add(jCheckBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(496, 212, -1, -1));
 
         jButton1.setText("Continuar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(207, 258, -1, -1));
 
         jLabel1.setText("Origen");
@@ -116,6 +123,11 @@ public class Principal extends javax.swing.JFrame {
         jPanel1.add(jDateChooser1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 207, 197, -1));
 
         origenDestino1.setCiudades(new String[] {"Oaxaca", "Jalapa", "Nochixtlan", "Cuernavaca", "CDMX", "Tehuacan", "Puebla"});
+        origenDestino1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                origenDestino1KeyTyped(evt);
+            }
+        });
         jPanel1.add(origenDestino1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 150, 254, -1));
 
         jTabbedPane4.addTab("Inicio", jPanel1);
@@ -171,23 +183,6 @@ public class Principal extends javax.swing.JFrame {
         );
 
         jTabbedPane4.addTab("Corridas", jPanel2);
-
-        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        Continuar.setText("Continuar");
-        Continuar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ContinuarActionPerformed(evt);
-            }
-        });
-        jPanel3.add(Continuar, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 440, -1, -1));
-
-        jLabel6.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
-        jLabel6.setText("Selecciona Tus Asientos");
-        jPanel3.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(164, 6, -1, -1));
-        jPanel3.add(reservar12, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 50, 610, 360));
-
-        jTabbedPane4.addTab("Reserva", jPanel3);
 
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -246,6 +241,22 @@ public class Principal extends javax.swing.JFrame {
 
         jTabbedPane4.addTab("Cancelar", jPanel6);
 
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        Continuar.setText("Continuar");
+        Continuar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ContinuarActionPerformed(evt);
+            }
+        });
+        jPanel3.add(Continuar, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 440, -1, -1));
+
+        jLabel6.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        jLabel6.setText("Selecciona Tus Asientos");
+        jPanel3.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(164, 6, -1, -1));
+
+        jTabbedPane4.addTab("Reserva", jPanel3);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -263,7 +274,7 @@ public class Principal extends javax.swing.JFrame {
     private void aceptarCorridaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aceptarCorridaActionPerformed
        int i = tablaCorridas.getSelectedRow();
        int asientos = Integer.parseInt(tablaCorridas.getValueAt(i, 7).toString());
-      reservar12.setNumAsientos(asientos);
+      reservar12.setnumeroA(asientos);
        reservar12.setVisible(true);
         System.out.println(asientos);
     }//GEN-LAST:event_aceptarCorridaActionPerformed
@@ -325,6 +336,24 @@ public class Principal extends javax.swing.JFrame {
         }
        
     }//GEN-LAST:event_generaBoletoActionPerformed
+   
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+      
+    }//GEN-LAST:event_jButton1ActionPerformed
+private void origenDestino1ItemStateChanged(java.awt.event.ItemEvent evt){
+    String q = origenDestino1.getOrigen().toString();
+    TableRowSorter<DefaultTableModel> tr = new TableRowSorter<DefaultTableModel> (modeloPasajeros);
+    tablaCorridas.setRowSorter(tr);
+    
+    if(q !=" "){
+        tr.setRowFilter(RowFilter.regexFilter(q));
+    } else {
+        tablaCorridas.setRowSorter(tr);
+    }
+}
+    private void origenDestino1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_origenDestino1KeyTyped
+       
+    }//GEN-LAST:event_origenDestino1KeyTyped
 
     /**
      * @param args the command line arguments
@@ -386,7 +415,6 @@ public class Principal extends javax.swing.JFrame {
     private origendestino.OrigenDestino origenDestino1;
     private javax.swing.JPanel panelBoletos;
     private javax.swing.JTable pasaje;
-    private resevar.Reservar reservar12;
     private javax.swing.JTable tablaCorridas;
     // End of variables declaration//GEN-END:variables
 }
